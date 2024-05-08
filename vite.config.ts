@@ -6,14 +6,19 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
-export default defineConfig({
+
+const config = {
   plugins: [vue()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  server: {
+  server: {}
+}
+
+if (!process.env.CI) {
+  config.server = {
     port: 3000,
     https: {
       key: fs.readFileSync(path.resolve(`${homedir()}/.office-addin-dev-certs/localhost.key`)),
@@ -21,4 +26,6 @@ export default defineConfig({
       ca: fs.readFileSync(path.resolve(`${homedir()}/.office-addin-dev-certs/ca.crt`))
     }
   }
-})
+}
+
+export default defineConfig(config)

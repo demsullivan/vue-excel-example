@@ -1,7 +1,6 @@
 import './assets/main.css'
 
 import { createApp } from 'vue'
-import 'moment'
 import { type Context, type Route, connectExcel } from 'vue-excel'
 import App from '@/App.vue'
 import RoutedComponent from '@/components/RoutedComponent.vue'
