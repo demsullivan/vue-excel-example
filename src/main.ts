@@ -1,12 +1,13 @@
 import './assets/main.css'
 
 import { createApp } from 'vue'
-import { type Context, connectExcel } from 'vue-excel'
+import 'moment'
+import { type Context, type Route, connectExcel } from 'vue-excel'
 import App from '@/App.vue'
 import RoutedComponent from '@/components/RoutedComponent.vue'
 
 window.Office.onReady(async () => {
-  const routes = [
+  const routes: Route[] = [
     // Visible if the worksheet name is "Route by Name".
     { sheetName: 'Route by Name', component: RoutedComponent },
 
@@ -16,7 +17,7 @@ window.Office.onReady(async () => {
     // Visible if the worksheet name is "Route by Function"
     {
       component: RoutedComponent,
-      activated: (context: Context, worksheet: Excel.Worksheet) =>
+      activated: async (context: Context, worksheet: Excel.Worksheet) =>
         worksheet.name == 'Route by Function'
     }
   ]
